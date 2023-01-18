@@ -9,10 +9,10 @@ public:
         minSum = min(minSum, curMin); //update the overall min subarray sum
         totalSum += x;
     }
-    return maxSum > 0 ? max(maxSum, totalSum - minSum) : maxSum;
-//         if(maxSum<(totalSum-minSum))
-//             maxSum=(totalSum-minSum);
+    // return maxSum > 0 ? max(maxSum, totalSum - minSum) : maxSum;
+        if(maxSum<(totalSum-minSum) && maxSum>0)
+            maxSum=(totalSum-minSum);
         
-//         return maxSum;
+        return maxSum;
     }
 };

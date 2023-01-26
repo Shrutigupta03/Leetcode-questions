@@ -1,26 +1,40 @@
 class Solution {
 public:
-   int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
-        unordered_map<int, vector<pair<int, int>>> graph;
-        for(auto e: flights) graph[e[0]].push_back({e[1], e[2]});
-        vector<int> prices(n, -1);
-        queue<pair<int, int>> q; q.push({src, 0});
-        ++K;
-        while(!q.empty()) {
-            if(!K) break;
-            int len = q.size();
-            for(int i = 0; i < len; i++) {
-                auto cur = q.front(); q.pop();
-                for(auto e: graph[cur.first]) {
-                    int price = cur.second + e.second; 
-                    if(prices[e.first] == -1 || price < prices[e.first]) {
-                        prices[e.first] = price;
-                        q.push({e.first, price});
-                    }
-                }
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) 
+    {
+        vector<vector<pair<int,int>>>graph(n,vector<pair<int,int>>());
+
+        for(auto it:flights)
+        {
+            graph[it[0]].push_back({it[1],it[2]});
+        }       
+        
+        vector<int>min_stops(n,INT_MAX);
+
+        priority_queue<vector<int>,vector<vector<int>>,greater<vector<int>>>pq;
+        pq.push({0,src,0});
+
+        while(!pq.empty())
+        {
+            auto it=pq.top();
+            pq.pop();
+
+            int dist=it[0];
+            int node=it[1];
+            int stops=it[2];
+
+            if(stops>min_stops[node] || stops>k+1) continue;
+            
+            min_stops[node]=stops;
+            if(node==dst) return dist;
+
+            for(auto it:graph[node])
+            {
+                int neigh=it.first;
+                int distance=it.second;
+                pq.push({dist+distance,neigh,stops+1});        
             }
-            K--;
         }
-        return prices[dst]; 
+        return -1;
     }
 };

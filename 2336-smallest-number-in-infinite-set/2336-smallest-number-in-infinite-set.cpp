@@ -12,7 +12,6 @@ public:
         i++;
         st.insert(i);
         return a;
-        
     }
     
     void addBack(int num) {

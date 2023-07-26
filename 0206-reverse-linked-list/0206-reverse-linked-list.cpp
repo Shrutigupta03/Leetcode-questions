@@ -11,19 +11,13 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        struct ListNode *p, *q, *r;
-        if(!head || !head->next) return head;
-        p = head;
-        q = p->next;
-        r = q->next;
-        head->next = NULL;
-        while(r){
-            q->next = p;
-            p = q;
-            q = r;
-            r = r->next;    
+        ListNode *dummy = NULL;
+        while(head != NULL){
+            ListNode* next = head->next;
+            head->next = dummy;
+            dummy = head;
+            head = next;
         }
-        q->next = p;
-        return q;
+        return dummy;
     }
 };

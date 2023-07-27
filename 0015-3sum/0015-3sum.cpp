@@ -4,17 +4,17 @@ public:
         vector<vector<int>> ans;
         sort(nums.begin(), nums.end());
         int n= nums.size();
-         if(nums.size() < 3){    //Base case 1
+         if(nums.size() < 3){   
             return {};
         }
-        if(nums[0] > 0){        //Base case 2
+        if(nums[0] > 0){   
             return {};
         }
         for(int i=0; i<n; ++i){
-            if(nums[i] > 0){     //If number fixed is +ve, stop there because we can't make it zero by searching after it.
+            if(nums[i] > 0){     
                 break;
             }
-            if(i > 0 && nums[i] == nums[i - 1]){    //If number is getting repeated, ignore the lower loop and continue.
+            if(i > 0 && nums[i] == nums[i - 1]){   
                 continue;
             }
             int start = i+1;
@@ -23,9 +23,9 @@ public:
             while(start<end){
                 sum = nums[start]+nums[end]+nums[i];
                 if(sum==0){
-                    ans.push_back({nums[i] , nums[start] , nums[end]});  //we have found the required triplet, push it in answer vector
-                    int last_start_occurence = nums[start] , last_end_occurence = nums[end];  //Now again, to avoid duplicate triplets, we have to navigate to last occurences of num[low] and num[high] respectively
-                    while(start < end && nums[start] == last_start_occurence){   // Update the low and high with last occurences of low and high.
+                    ans.push_back({nums[i] , nums[start] , nums[end]}); 
+                    int last_start_occurence = nums[start] , last_end_occurence = nums[end];  
+                    while(start < end && nums[start] == last_start_occurence){   
                         start++;
                     }
                     while(start < end && nums[end] == last_end_occurence){

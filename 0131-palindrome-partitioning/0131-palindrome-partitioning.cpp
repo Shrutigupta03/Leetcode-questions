@@ -9,7 +9,7 @@ public:
         }
         return true;
     }
-    void palindromePartition(int index, vector<string>& ds, vector<vector<string>>& output,     string s){
+    void palindromePartition(int index, vector<string>& ds, vector<vector<string>>& output, string s){
         if(index == s.length()){
             output.push_back(ds);
             return;
@@ -22,6 +22,7 @@ public:
             }
         }
     }
+    
     vector<vector<string>> partition(string s) {
         vector<vector<string>> output;
         vector<string> ds;

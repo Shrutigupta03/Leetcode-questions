@@ -9,6 +9,8 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+#include <bits/stdc++.h>
+
 class Solution {
 public:
    void storeInorder(TreeNode* root, vector<int> &inorder){
@@ -25,18 +27,10 @@ bool findTarget(TreeNode* root, int k) {
     
     storeInorder(root,inorder);
     
-    int s = 0 , e = inorder.size() -1;
-    
-    while( s < e ){
-        if( inorder[s] + inorder[e] == k ){
+    for(int i=0; i<inorder.size()-1; i++){
+        int x = k - inorder[i];
+        if(find(inorder.begin()+i+1, inorder.end(), x) != inorder.end())
             return true;
-        }
-        else if( inorder[s] + inorder[e] < k ){
-            s++;
-        }
-        else{
-            e--;
-        }
     }
     
     return false;

@@ -7,7 +7,6 @@ public:
         visit[0]=1;
         for(auto it : rooms[0]){
             q.push(it);
-            cout<<it<<endl;
             visit[it] = 1;
         }
         while(!q.empty()){

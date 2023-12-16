@@ -1,23 +1,43 @@
 class Solution {
 public:
-     vector<int> DIR = {0, 1, 0, -1, 0};
-    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
-        int m = mat.size(), n = mat[0].size();
-        queue<pair<int, int>> q;
-        for (int r = 0; r < m; ++r)
-            for (int c = 0; c < n; ++c)
-                if (mat[r][c] == 0) q.emplace(r, c);
-                else mat[r][c] = -1; // Marked as not processed yet!
-
-        while (!q.empty()) {
-            auto [r, c] = q.front(); q.pop();
-            for (int i = 0; i < 4; ++i) {
-                int nr = r + DIR[i], nc = c + DIR[i+1];
-                if (nr < 0 || nr == m || nc < 0 || nc == n || mat[nr][nc] != -1) continue;
-                mat[nr][nc] = mat[r][c] + 1;
-                q.emplace(nr, nc);
+     bool isvalid(int i,int j,int m,int n)
+    {
+        if(i==m||j==n||j<0||i<0)
+            return false;
+        return true;
+    }
+    
+    vector<vector<int>> dir={{1,0},{0,1},{0,-1},{-1,0}};
+    vector<vector<int>> updateMatrix(vector<vector<int>>& matrix) 
+    {
+        queue<pair<int,int>> q;
+        int m=matrix.size();
+        int n=matrix[0].size();
+        vector<vector<int>> dis(m,vector<int>(n,-1));
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+            {
+                if(matrix[i][j]==0)
+                { 
+                    q.push({i,j});
+                    dis[i][j]=0;
+                }
+            }
+        while(!q.empty())
+        {
+            pair<int,int> curr=q.front();
+            q.pop();
+            for(auto& x:dir)
+            {
+                int a=curr.first+x[0];
+                int b=curr.second+x[1];
+                if(isvalid(a,b,m,n)&&dis[a][b]==-1)
+                {
+                    q.push({a,b});
+                    dis[a][b]=dis[curr.first][curr.second]+1;
+                }
             }
         }
-        return mat;
+        return dis;
     }
 };

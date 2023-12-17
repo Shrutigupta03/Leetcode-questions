@@ -1,19 +1,30 @@
 class Solution {
 public:
     int findJudge(int n, vector<vector<int>>& trust) {
-        if(trust.size()==0 && n==1){
-            return 1;
+        vector<int> vis(n, 0);
+        for(int i=0; i<trust.size(); i++){
+            vis[trust[i][0]-1]=1;
         }
-        vector<int> count(n+1, 0);
-        for(auto& it : trust){
-            count[it[0]]--;
-            count[it[1]]++;
-        }
-        for(int i=0; i<count.size(); i++){
-            if(count[i]==n-1){
-                return i;
+        bool found = 0;
+        int res;
+        int j=0;
+        for(int i=0; i<n; i++){
+            if(!vis[i]){
+                found=1;
+                res = i+1;
+                j++;
             }
         }
+        if(!found || j>1) return -1;
+        
+        j=0;
+        for(int i=0; i<trust.size(); i++){
+            if(trust[i][1]==res){
+                j++;
+            }
+        }
+        if(j>=n-1) return res;
+        
         return -1;
     }
 };

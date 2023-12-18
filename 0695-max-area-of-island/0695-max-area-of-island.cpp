@@ -1,7 +1,7 @@
 class Solution {
 public:
     int check(int i, int j, vector<vector<int>>& vis, vector<vector<int>>& grid){
-        if(i>=grid.size() || i<0 || j>=grid[0].size() || j<0 || vis[i][j] || grid[i][j]==0) return 0;
+        if(i>=grid.size() || j>=grid[0].size() || vis[i][j] || grid[i][j]==0) return 0;
         
         vis[i][j]=1;
         return 1+check(i, j+1, vis, grid)+

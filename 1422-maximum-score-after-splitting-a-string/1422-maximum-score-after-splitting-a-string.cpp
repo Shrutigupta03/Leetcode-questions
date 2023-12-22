@@ -1,24 +1,24 @@
 class Solution {
 public:
-    int count(string s1, string s2){
-        int res = 0;
-        for(auto it : s1){
-            if(it=='0') res++;
-        }
-        for(auto it : s2){
-            if(it=='1') res++;
-        }
-        return res;
-    }
-    
     int maxScore(string s) {
-        int n = s.size();
-        int Max = 0;
-        for(int i=1; i<n; i++){
-            int res = count(s.substr(0, i), s.substr(i, n-i));
-            // cout<<res<<endl;
-            Max = max(Max, res);
+        int ones = 0;
+        int zeros = 0;
+        int best = INT_MIN;
+
+        for (int i = 0; i < s.size() - 1; i++) {
+            if (s[i] == '1') {
+                ones++;
+            } else {
+                zeros++;
+            }
+            
+            best = max(best, zeros - ones);
         }
-        return Max;
+        
+        if (s[s.size() - 1] == '1') {
+            ones++;
+        }
+        
+        return best + ones;
     }
 };

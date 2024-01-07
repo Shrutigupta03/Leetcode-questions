@@ -16,7 +16,7 @@ public:
                         cout<<*x<<endl;
                         continue;
                     } 
-                    if(*x-*prev(x)<100 && *next(x)-*x<100 && *x-*prev(x)>=0 && *next(x)-*x>=0 && *next(x)-*prev(x)<100 && *next(x)-*prev(x)>=0){
+                    if(*next(x)-*prev(x)<100 && *next(x)-*prev(x)>=0){
                         cout<<*prev(x)<<" "<<*x<<" "<<*next(x)<<endl;
                         res.push_back(it.first);
                         break;

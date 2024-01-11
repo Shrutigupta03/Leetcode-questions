@@ -1,19 +1,12 @@
 class Solution {
 public:
     int minMoves2(vector<int>& nums) {
-        int n = nums.size();
-        int res = INT_MAX;
-        
+        int n = nums.size(), steps = 0;
+        sort(nums.begin(), nums.end());
+        int median = nums[n/2]; 
         for(int i=0; i<n; i++){
-            long long temp = 0;
-            for(int j=0; j<n; j++){
-                temp += abs(nums[j]-nums[i]);
-                // cout<<temp<<" ";
-            }
-            // cout<<endl;
-            // temp=abs(temp);
-            res=res<temp?res:temp;
+            steps += abs(nums[i] - median); 
         }
-        return res;
+        return steps;
     }
 };

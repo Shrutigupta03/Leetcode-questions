@@ -24,14 +24,14 @@ public:
     }
     ListNode *mergeKLists(vector<ListNode *> &lists) {
         if (lists.empty()) return NULL;
-        int len = lists.size();
-        while (len > 1) {
-            for (int i = 0; i < len / 2; ++i) {
-                lists[i] = mergeTwoLists(lists[i], lists[len - 1 - i]);
+        int x = lists.size();
+        while (x > 1) {
+            for (int i = 0; i < x/2; ++i) {
+                lists[i] = mergeTwoLists(lists[i], lists[x-i-1]);
             }
-            len = (len + 1) / 2;
+            x = (x + 1) / 2;
         }
         
-        return lists.front();
+        return lists[0];
     }
 };

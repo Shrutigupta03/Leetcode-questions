@@ -1,24 +1,18 @@
 class Solution {
-    
-private:
-    double binaryExp(double x, long n) {
-        if (n == 0) {
-            return 1;
-        }
-       
-        if (n < 0) {
-            return 1.0 / binaryExp(x, -n);
-        }
-       
-        if (n % 2 == 1) {
-            return x * binaryExp(x * x, (n - 1) / 2);
-        } else {
-            return binaryExp(x * x, n / 2);
-        }
-    }
-    
 public:
+
     double myPow(double x, int n) {
-       return binaryExp(x, (long)n);
+       double ans = 1.0; long long nn = abs(n);
+     
+       while(nn){
+        if(nn%2 ==0){
+            x = x*x; nn = nn/2;
+        }
+        else{
+            ans = ans*x; nn = nn-1;
+        }
+       }
+       if(n<0) ans = (double)(1.0)/(double)(ans);
+       return ans;
     }
 };

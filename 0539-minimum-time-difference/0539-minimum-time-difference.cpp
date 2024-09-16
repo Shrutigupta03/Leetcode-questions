@@ -15,8 +15,8 @@ public:
     for(int i=0; i<minutes.size()-1; i++){
         minTimeDiff = min(minTimeDiff, minutes[i+1]-minutes[i]);
     }
-
-    return min(minTimeDiff, abs(1440-minutes[minutes.size()-1]+minutes[0]));
+  
+    return min(minTimeDiff, 1440+minutes[0]-minutes[minutes.size()-1]);
 
     }
 

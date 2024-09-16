@@ -16,7 +16,7 @@ public:
         minTimeDiff = min(minTimeDiff, minutes[i+1]-minutes[i]);
     }
   
-    return min(minTimeDiff, 1440+minutes[0]-minutes[minutes.size()-1]);
+    return min(minTimeDiff, 1440 - (minutes[minutes.size()-1]-minutes[0]));
 
     }
 

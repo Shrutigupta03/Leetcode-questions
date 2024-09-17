@@ -4,6 +4,8 @@ public:
         map<string, int> mp;
         vector<string> res;
         string temp;
+        
+        s1 = s1+' '+s2;
         for(int i=0; i<s1.size(); i++){
             if(s1[i]==' '){
                 mp[temp]++;
@@ -12,18 +14,6 @@ public:
             } 
             else{
                 temp+=s1[i];
-            }
-        }
-        mp[temp]++;
-        temp = "";
-        for(int i=0; i<s2.size(); i++){
-            if(s2[i]==' '){
-                mp[temp]++;
-                temp = "";
-                continue;
-            } 
-            else{
-                temp+=s2[i];
             }
         }
         mp[temp]++;

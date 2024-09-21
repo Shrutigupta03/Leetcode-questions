@@ -1,16 +1,22 @@
 class Solution {
 public:
     vector<int> lexicalOrder(int n) {
-        priority_queue<string, vector<string>, greater<string>> pq;
-        for(int i=0; i<n; i++){
-            pq.push(to_string(i+1));
+        vector<int> lex;
+        int curr = 1;
+
+        for (int i = 0; i < n; ++i) {
+            lex.push_back(curr);
+
+            if (curr * 10 <= n) {
+                curr *= 10;
+            } else {
+                while (curr % 10 == 9 || curr >= n) {
+                    curr /= 10;
+                }
+                curr += 1;
+            }
         }
-        vector<int> res;
-        while(!pq.empty()){
-            res.push_back(stoi(pq.top()));
-            pq.pop();
-        }
-        
-        return res;
+
+        return lex;
     }
 };

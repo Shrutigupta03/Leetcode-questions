@@ -1,45 +1,38 @@
 class Solution {
 public:
-    string simplifyPath(string path) {
-        
-        stack<string> st;
-        string res;
-        
-        for(int i = 0;  i<path.size(); ++i)
-        {
-            if(path[i] == '/')    
-                continue;
-            string temp;
-			// iterate till we doesn't traverse the whole string and doesn't encounter the last /
-            while(i < path.size() && path[i] != '/')
-            {
-				// add path to temp string
-                temp += path[i];
-                ++i;
+    string simplifyPath(string s) {
+        vector<string> v;
+        int i=0;
+        while(i<s.size()){
+            if(s[i]=='/'){
+                while(s[i]=='/') i++;
             }
-            if(temp == ".")
-                continue;
-			// pop the top element from stack if exists
-            else if(temp == "..")
-            {
-                if(!st.empty())
-                    st.pop();
+            else{
+                string temp = "";
+                while(i<s.size() && s[i]!='/'){
+                    temp+=s[i];
+                    i++;
+                }
+                if(!temp.empty()){
+                   if(temp==".."){
+                       if(v.size()) v.pop_back();
+                       continue;
+                   }
+                   else if(temp==".") continue;
+                   else v.push_back(temp);
+                }
             }
-            else
-			// push the directory file name to stack
-                st.push(temp);
+            
         }
         
-		// adding all the stack elements to res
-        while(!st.empty())
-        {
-            res = "/" + st.top() + res;
-            st.pop();
-        }
+        string res = "/";
         
-		// if no directory or file is present
-        if(res.size() == 0)
-            return "/";
+        for(int i=0; i<v.size(); i++){
+            if(i!=0) res+="/";
+            res+= v[i];
+            cout<<v[i]<<" ";
+        }
+        cout<<endl;
         
         return res;
     }

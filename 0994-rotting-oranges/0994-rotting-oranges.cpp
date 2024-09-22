@@ -1,38 +1,46 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        queue<pair<int, int>> q;
-        int initialFresh=0, time=0;
-        
-        for(int i=0; i<grid.size(); i++){
-            for(int j=0; j<grid[i].size(); j++){
-                if(grid[i][j]==2){
-                    q.push({i, j});
+        queue<pair<int,int>> q;
+        int fresh = 0;
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[i].size();j++){
+                if(grid[i][j] == 2){
+                    q.push({i,j});
                 }
-                if(grid[i][j]==1) initialFresh++;
+                if(grid[i][j] == 1){
+                    fresh++;
+                }
             }
         }
-        if(q.empty() && initialFresh==0) return 0;
+        if(q.empty() && fresh == 0){
+            return 0;
+        }
+        
+        int m = 0;
+        vector<vector<int>> d = {{1, 0},{-1, 0},{0, -1},{0, 1}};
         
         while(!q.empty()){
-	        int sz = q.size();
-	        while(sz--){
-	            int x = q.front().first;
-                int y = q.front().second;
+            int s = q.size();
+            while(s--){
+                auto p = q.front();
+                int i = p.first;
+                int j = p.second;
                 q.pop();
-                vector<vector<int>> dir = {{1,0}, {-1,0},{0,1}, {0,-1}};
-	        for(int i=0; i<dir.size(); i++){
-		        if(x+dir[i][0]>=0 && x+dir[i][0]<grid.size() && y+dir[i][1]>=0 &&  y+dir[i][1]<grid[0].size() && grid[x+dir[i][0]][y+dir[i][1]]==1 ){
-                    q.push({x+dir[i][0],  y+dir[i][1]});
-                    grid[x+dir[i][0]][ y+dir[i][1]]=2;
-                    initialFresh--;
-                } 
+                for(int xi=0;xi<d.size();xi++){
+                    int ri = i + d[xi][0];
+                    int rj = j + d[xi][1];
+                    if(ri>=0 && ri<grid.size() && rj<grid[0].size() && rj>=0 && grid[ri][rj]== 1){
+                        grid[ri][rj] = 2;
+                        fresh--;
+                        q.push({ri,rj});
+                    }
+                }
             }
+            m++;
         }
-        time++;
-    }
-        if(initialFresh==0) return --time;
-	    return -1;
+        if(fresh==0) return --m;
         
+        return -1;
     }
 };

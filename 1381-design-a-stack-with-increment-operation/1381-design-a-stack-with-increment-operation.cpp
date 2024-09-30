@@ -1,40 +1,38 @@
 class CustomStack {
-private: 
-    int top = -1;
-    vector<int> v;
-    
+private:
+    vector<int> stackArray;
+    vector<int> incrementArray;
+    int topIndex;
+
 public:
-    
     CustomStack(int maxSize) {
-        v.resize(maxSize);
+        stackArray.resize(maxSize);
+        incrementArray.resize(maxSize);
+        topIndex = -1;
     }
-    
+
     void push(int x) {
-        int tempsz = v.size()-1;
-        if(top<tempsz){
-            top++;
-            v[top] = x;
+        if (topIndex < (int)(stackArray.size()) - 1) {
+            stackArray[++topIndex] = x;
         }
     }
-    
+
     int pop() {
-        if(top==-1) return -1;
-        int temp = v[top];
-        top--;
-        return temp;
+        if (topIndex < 0) return -1;
+        
+        int result = stackArray[topIndex] + incrementArray[topIndex];
+        
+        if (topIndex > 0) incrementArray[topIndex - 1] += incrementArray[topIndex];
+
+        incrementArray[topIndex] = 0;
+        topIndex--;
+        return result;
     }
-    
+
     void increment(int k, int val) {
-        for(int i=0; i<k && i<v.size(); i++){
-            v[i] = v[i]+val;
+        if (topIndex >= 0) {
+            int incrementIndex = min(topIndex, k - 1);
+            incrementArray[incrementIndex] += val;
         }
     }
 };
-
-/**
- * Your CustomStack object will be instantiated and called as such:
- * CustomStack* obj = new CustomStack(maxSize);
- * obj->push(x);
- * int param_2 = obj->pop();
- * obj->increment(k,val);
- */

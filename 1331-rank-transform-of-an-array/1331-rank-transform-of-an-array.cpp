@@ -1,20 +1,20 @@
 class Solution {
 public:
     vector<int> arrayRankTransform(vector<int>& arr) {
-        
-        map<int, vector<int>> mp;
-        
-        for(int i=0; i<arr.size(); i++){
-            mp[arr[i]].push_back(i);
-        }
-        
-        int cnt = 1;
-        for(auto it : mp){
-            for(auto idx : it.second){
-                arr[idx] = cnt;
+        vector<int> v = arr;
+        sort(v.begin(),v.end());
+        unordered_map<int,int> m;
+        int rank = 1;
+        for(int i=0;i<arr.size();i++){
+            while(i+1 < arr.size() && v[i] == v[i+1]){
+                i++;
             }
-            cnt++;
+            m[v[i]] = rank;
+            rank++;
         }
-        return arr;
+        for(int i=0;i<arr.size();i++){
+            v[i] = m[arr[i]];
+        }
+        return v;
     }
 };

@@ -1,18 +1,18 @@
 class Solution {
 public:
+     int solve(int x, vector<int> nums, vector<int>& dp){
+         if(x<0) return 0;
+         if (dp[x] >= 0) {
+            return dp[x];
+         }   
+         
+         int result = max(nums[x]+solve(x-2, nums, dp), solve(x-1, nums, dp));
+         dp[x] = result;
+         return result;
+     }
+    
      int rob(vector<int>& nums) {
-        const int n = nums.size();
-        if (n == 0) return 0;
-        if (n == 1) return nums[0];
-        if (n == 2) return max(nums[0], nums[1]);
-        // vector<int> f(n, 0);
-        int prev2 = nums[0];
-        int prev1 = max(nums[0], nums[1]);
-        for (int i = 2; i < n; ++i){
-            int curr = max(prev2 + nums[i], prev1);
-            prev2 = prev1;
-            prev1=curr;  
-        }
-        return prev1;
-    }
+         vector<int> dp(nums.size()+1, -1);
+         return solve(nums.size()-1, nums, dp);
+     }
 };

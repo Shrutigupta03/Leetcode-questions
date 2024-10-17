@@ -1,27 +1,23 @@
 class Solution {
 public:
-    int majorityElement(vector<int>& nums) {
-       map<int, int> m;
-        int n = nums.size();
-        int target;
-        for(auto it : nums){
-            m[it]++;
-        }
-        cout<<n/2<<endl;
-        for(auto it : m){
-            // cout<<it.first<<"---"<<it.second<<endl;
-            
-            if(n/2!=0){
-                if(it.second > n/2 ){
-                    target = it.first;
-                }
+    int majorityElement(vector<int>& v) {
+        int el, cnt=0, n=v.size();
+        
+        for (int i = 0; i < n; i++) {
+            if (cnt == 0) {
+                cnt = 1;
+                el = v[i];
             }
-            else{
-                if(it.second>=n/2){
-                    target = it.first;
-                }
-            }
+            else if (el == v[i]) cnt++;
+            else cnt--;
         }
-        return target;
+        
+        cnt = 0;
+        for (int i = 0; i < n; i++) {
+            if (v[i] == el) cnt++;
+        }
+        
+        if (cnt > (n / 2)) return el;
+        return -1;
     }
 };

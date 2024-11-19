@@ -3,21 +3,25 @@ public:
     long long maximumSubarraySum(vector<int>& nums, int k) {
         long long currSum=0, maxSum=0;
         unordered_map<int, int> mp;
-        int i=0, j=0;
         
-        while(j<nums.size()){
-            int currNum = nums[j];
-            int lastOcc = mp.count(currNum) ? mp[currNum] : -1;
-            
-            while(i<=lastOcc || j-i+1>k){
-                currSum -= nums[i];
-                i++;
+        for(int i=0; i<k; i++){
+            mp[nums[i]]++; 
+            currSum += nums[i];
+        }
+        
+        if(mp.size()==k) maxSum = currSum;
+        
+        for(int i=0; i<nums.size()-k; i++){
+            if(mp[nums[i]]>1){
+                mp[nums[i]]--;
             }
+            else mp.erase(nums[i]);
+            currSum -= nums[i];
             
-            mp[currNum] = j;
-            currSum += nums[j];
-            if(j-i+1==k) maxSum=max(maxSum, currSum);
-            j++;
+            mp[nums[i+k]]++;
+            currSum += nums[i+k];
+           
+            if(mp.size()==k) maxSum = currSum>maxSum ? currSum : maxSum;
         }
         
         return maxSum;

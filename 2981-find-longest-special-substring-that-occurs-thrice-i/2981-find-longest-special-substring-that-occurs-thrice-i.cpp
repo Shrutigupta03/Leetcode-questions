@@ -1,24 +1,26 @@
 class Solution {
 public:
     int maximumLength(string s) {
-        int n = s.size();
-        unordered_map<string, int> mp;
-        
-        for(int i=0; i<n; i++){
-            string temp;
-            for(int j=i; j<n; j++){
-                if(s[j]==s[i]){
-                    temp+=s[j];
-                    mp[temp]++;
-                }
-                else break;
+        int ans = 0;
+        int l = 0;
+        unordered_map<string,int> m;
+        int r = 0;
+        while(l<s.size()){
+            while(s[l]==s[r]){
+                cout<<s.substr(l,r-l+1)<<endl;
+                m[s.substr(l,r-l+1)]++;
+                r++;
+            }
+            l++;
+            r=l;
+        }
+        cout<<m.size();
+        for(auto i:m){
+            if(i.second >= 3 && ans < i.first.size()){
+                ans = i.first.size();
             }
         }
-        
-        int maxi=0;
-        for(auto it: mp){
-            if(it.second>=3 && it.first.size()>maxi) maxi=it.first.size();
-        }
-        return maxi==0 ? -1 : maxi;
+        return ans==0?-1:ans;
+
     }
 };

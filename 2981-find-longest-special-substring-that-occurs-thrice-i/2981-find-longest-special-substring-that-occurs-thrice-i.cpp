@@ -1,27 +1,24 @@
 class Solution {
 public:
     int maximumLength(string s) {
-        int x = s.size()-2;
+        int n = s.size();
+        unordered_map<string, int> mp;
         
-        for(int i=x; i>=1; i--){
-            unordered_map<string, int> mp;
-            for(int j=0; j<s.size()-i+1; j++){
-                string temp;
-                bool valid = 1;
-                for(int k=j; k<j+i; k++){
-                    if(s[j]==s[k]) temp+=s[k];
-                    else {
-                        valid=0;
-                        break;
-                    }
-                }
-                if(valid){
-                    if( mp[temp] == 2) return i;
+        for(int i=0; i<n; i++){
+            string temp;
+            for(int j=i; j<n; j++){
+                if(s[j]==s[i]){
+                    temp+=s[j];
                     mp[temp]++;
                 }
+                else break;
             }
         }
         
-        return -1;
+        int maxi=0;
+        for(auto it: mp){
+            if(it.second>=3 && it.first.size()>maxi) maxi=it.first.size();
+        }
+        return maxi==0 ? -1 : maxi;
     }
 };

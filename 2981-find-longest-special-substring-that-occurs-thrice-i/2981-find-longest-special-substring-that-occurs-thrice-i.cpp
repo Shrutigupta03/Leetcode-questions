@@ -15,8 +15,10 @@ public:
                         break;
                     }
                 }
-                if(valid && mp[temp] == 2) return i;
-                mp[temp]++;
+                if(valid){
+                    if( mp[temp] == 2) return i;
+                    mp[temp]++;
+                }
             }
         }
         
